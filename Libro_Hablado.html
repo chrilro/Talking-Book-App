@@ -279,6 +279,7 @@ body{font-family:'Inter',sans-serif;background:var(--parchment);color:var(--ink)
 
 /* ══ PRINT ══ */
 @media print{
+  /* Use zero-margin page for the cover to allow full bleed */
   @page{size:A4;margin:14mm 18mm}
   @page cover{size:A4;margin:0}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -288,12 +289,15 @@ body{font-family:'Inter',sans-serif;background:var(--parchment);color:var(--ink)
   .main{padding:0!important;gap:0!important}
   body{background:white!important}
 
-  /* ── COVER ── */
   /* ── COVER: shared ── */
   .print-cover{
     page:cover;page-break-after:always;break-after:page;
-    width:100vw;height:100vh;overflow:hidden;
+    /* A4 exact dimensions — fills the page with @page cover{margin:0} */
+    width:210mm;
+    height:297mm;
+    overflow:hidden;
     text-align:center;
+    position:relative;
   }
 
   /* ── PORTRAIT: image fills page, text overlays bottom ── */
@@ -328,7 +332,7 @@ body{font-family:'Inter',sans-serif;background:var(--parchment);color:var(--ink)
   .print-cover.landscape-img .cv-content{
     flex:0 0 auto;padding:8mm 18mm 12mm;
     background:#F7F0E3;text-align:center;width:100%;
-    border-top:0.5pt solid #D8CDB8;
+    /* no border — clean separation */
   }
 
   /* ── NO IMAGE: dark background ── */
