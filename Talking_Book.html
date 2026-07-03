@@ -367,8 +367,14 @@ body{font-family:'Inter',sans-serif;background:var(--parchment);color:var(--ink)
     display:flex;
     flex-direction:column;
     align-items:center;
-    min-height:267mm;
+    height:267mm;
     padding:0;
+    overflow:hidden;
+  }
+  .pp-inner.no-scale{
+    height:auto;
+    min-height:0;
+    overflow:visible;
   }
   .pp-num{display:none}
   .pp-img-col{
@@ -381,8 +387,9 @@ body{font-family:'Inter',sans-serif;background:var(--parchment);color:var(--ink)
     border-radius:3pt;
   }
   .pp-text{
-    width:100%;font-size:16pt;color:#1C2B1A;line-height:1.85;
+    width:100%;color:#1C2B1A;line-height:1.85;
     font-family:'Noto Sans', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;text-align:left;
+    flex-shrink:0;
   }
 }
 .print-cover,.print-pages,.print-page{display:none}
@@ -431,8 +438,8 @@ body{font-family:'Inter',sans-serif;background:var(--parchment);color:var(--ink)
     <input type="text" id="s-lang" placeholder="e.g. Yawuru"/>
     <label for="s-speaker">Speaker</label>
     <input type="text" id="s-speaker" placeholder="Name, community, age…"/>
-    <label for="s-editor">Editor</label>
-    <input type="text" id="s-editor" placeholder="e.g. LING 301, Dr. Smith"/>
+    <label for="s-editor">Project Team</label>
+    <input type="text" id="s-editor" placeholder="e.g. LING 301, Dr. Smith, Illustrator…"/>
     <label for="s-artist">Artist</label>
     <input type="text" id="s-artist" placeholder="Name of illustrator or photographer…"/>
   </div>
@@ -479,6 +486,10 @@ body{font-family:'Inter',sans-serif;background:var(--parchment);color:var(--ink)
   <hr class="sb-div"/>
   <div>
     <div class="sb-title">Export &amp; Print</div>
+    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:.75rem;color:var(--sage-mid);margin-bottom:8px;margin-top:-2px">
+      <input type="checkbox" id="chk-font-scale" checked style="accent-color:var(--gold);width:13px;height:13px;cursor:pointer;flex-shrink:0"/>
+      Auto-fit font to page
+    </label>
     <button class="btn-sb print" onclick="printBook()">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
       Print book
@@ -1046,7 +1057,7 @@ function printBook() {
 
   // Cover
   const editors = cls ? cls.split(';').map(s=>s.trim()).filter(Boolean) : [];
-  const editorLabel = editors.length > 1 ? 'Editors: ' : 'Editor: ';
+  const editorLabel = editors.length > 1 ? 'Project Team: ' : 'Project Team: ';
   const editorDisplay = editors.length > 1
     ? editors.slice(0,-1).join(', ') + ' and ' + editors[editors.length-1]
     : editors[0] || '';
@@ -1108,30 +1119,78 @@ function printBook() {
   const container = document.getElementById('print-pages');
   container.innerHTML = '';
 
-  pages.forEach((p,i) => {
-    const pg = document.createElement('div');
-    pg.className = 'print-page';
+  const doFontScale = document.getElementById('chk-font-scale').checked;
+  const PAGE_H_MM  = 267;  // usable A4 page height
+  const IMG_H_MM   = 148;  // fixed image max-height (matches CSS)
+  const IMG_GAP_MM = 10;   // margin-bottom on img col
+  const BASE_FONT  = 16;   // pt
+  const MIN_FONT   = 10;   // pt
+  const LINE_H     = 1.85;
+  const TEXT_W_MM  = 174;  // A4 210mm - 18mm*2 margins
 
+  function measureTextMM(text, fontPt) {
+    if (!text || !text.trim()) return 0;
+    const el = document.createElement('div');
+    el.style.cssText = [
+      'position:absolute','visibility:hidden','pointer-events:none',
+      'top:-9999px','left:0',
+      'width:' + TEXT_W_MM + 'mm',
+      'font-size:' + fontPt + 'pt',
+      'line-height:' + LINE_H,
+      "font-family:'Noto Sans','Segoe UI','Helvetica Neue',Arial,sans-serif",
+      'white-space:pre-wrap','word-break:break-word','overflow-wrap:break-word'
+    ].join(';');
+    el.textContent = text;
+    document.body.appendChild(el);
+    const mm = el.offsetHeight * 0.2646;
+    document.body.removeChild(el);
+    return mm;
+  }
+
+  pages.forEach((p,i) => {
+    const pg    = document.createElement('div');
+    pg.className = 'print-page';
     const inner = document.createElement('div');
     inner.className = 'pp-inner';
 
-    // Image — centered, prominent, above text
+    const hasImg  = !!p.imageDataURL;
+    const hasText = !!(p.text && p.text.trim());
+
+    // Image column — size never changes
     const imgCol = document.createElement('div');
     imgCol.className = 'pp-img-col';
-    if (p.imageDataURL) {
+    if (hasImg) {
       const img = document.createElement('img');
-      img.src = p.imageDataURL;
-      img.alt = '';
+      img.src = p.imageDataURL; img.alt = '';
       imgCol.appendChild(img);
     }
     inner.appendChild(imgCol);
 
-    // Text
+    // Text — find font size that fits remaining vertical space
     const textEl = document.createElement('div');
     textEl.className = 'pp-text';
-    textEl.textContent = p.text || '';
-    inner.appendChild(textEl);
 
+    if (hasText) {
+      if (doFontScale) {
+        const usedMM  = hasImg ? IMG_H_MM + IMG_GAP_MM : 0;
+        const availMM = PAGE_H_MM - usedMM;
+        let fontPt = BASE_FONT;
+        if (measureTextMM(p.text, BASE_FONT) > availMM) {
+          for (let fp = BASE_FONT - 0.5; fp >= MIN_FONT; fp -= 0.5) {
+            if (measureTextMM(p.text, fp) <= availMM) { fontPt = fp; break; }
+            fontPt = MIN_FONT;
+          }
+        }
+        textEl.style.fontSize = fontPt + 'pt';
+      } else {
+        // No scaling — let text flow naturally onto extra pages
+        inner.classList.add('no-scale');
+        textEl.style.fontSize = BASE_FONT + 'pt';
+      }
+      textEl.textContent = p.text;
+    }
+
+    inner.appendChild(textEl);
     pg.appendChild(inner);
     container.appendChild(pg);
   });
