@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Libro Hablado — Constructor de Historias</title>
+<title>Talking Book — Story Builder</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
@@ -422,77 +422,77 @@ body{font-family:'Inter',sans-serif;background:var(--parchment);color:var(--ink)
       <path d="M16 6C20 6 26 8 26 10L26 26C26 26 22 24 16 24" stroke="#C8872A" stroke-width="1.8" stroke-linecap="round" fill="none"/>
       <line x1="16" y1="6" x2="16" y2="24" stroke="#C8872A" stroke-width="1.2" stroke-dasharray="2 2"/>
     </svg>
-    <h1>Libro Hablado</h1>
+    <h1>Talking Book</h1>
   </div>
   <div class="hdr-stats">
-    <div class="hdr-stat"><div class="n" id="stat-pages">0</div><div class="l">Páginas</div></div>
-    <div class="hdr-stat"><div class="n" id="stat-img">0</div><div class="l">Imágenes</div></div>
-    <div class="hdr-stat"><div class="n" id="stat-txt">0</div><div class="l">Transcritas</div></div>
+    <div class="hdr-stat"><div class="n" id="stat-pages">0</div><div class="l">Pages</div></div>
+    <div class="hdr-stat"><div class="n" id="stat-img">0</div><div class="l">Images</div></div>
+    <div class="hdr-stat"><div class="n" id="stat-txt">0</div><div class="l">Transcribed</div></div>
   </div>
-  <div class="story-badge" id="story-badge">Historia sin título</div>
+  <div class="story-badge" id="story-badge">Untitled story</div>
 </header>
 
 <!-- SIDEBAR -->
 <aside class="sidebar">
   <div>
-    <div class="sb-title">Detalles de la historia</div>
-    <label for="s-title">Título de la historia</label>
-    <input type="text" id="s-title" placeholder="p. ej. El Zorro y el Río" oninput="updateBadge()"/>
-    <label for="s-lang">Idioma</label>
-    <input type="text" id="s-lang" placeholder="p. ej. Yawuru"/>
-    <label for="s-speaker">Narrador</label>
-    <input type="text" id="s-speaker" placeholder="Nombre, comunidad, edad…"/>
-    <label for="s-editor">Equipo del Proyecto</label>
-    <input type="text" id="s-editor" placeholder="p. ej. LING 301, Dr. Smith, Ilustrador…"/>
-    <label for="s-artist">Artista</label>
-    <input type="text" id="s-artist" placeholder="Nombre del ilustrador o fotógrafo…"/>
+    <div class="sb-title">Story details</div>
+    <label for="s-title">Story title</label>
+    <input type="text" id="s-title" placeholder="e.g. The Fox and the River" oninput="updateBadge()"/>
+    <label for="s-lang">Language</label>
+    <input type="text" id="s-lang" placeholder="e.g. Yawuru"/>
+    <label for="s-speaker">Speaker</label>
+    <input type="text" id="s-speaker" placeholder="Name, community, age…"/>
+    <label for="s-editor">Project Team</label>
+    <input type="text" id="s-editor" placeholder="e.g. LING 301, Dr. Smith, Illustrator…"/>
+    <label for="s-artist">Artist</label>
+    <input type="text" id="s-artist" placeholder="Name of illustrator or photographer…"/>
   </div>
   <hr class="sb-div"/>
   <div>
-    <div class="sb-title">Imagen de portada</div>
+    <div class="sb-title">Cover image</div>
     <div class="cover-img-drop" id="ci-drop"
       onclick="document.getElementById('ci-input').click()"
       ondragover="event.preventDefault();this.classList.add('dragover')"
       ondragleave="this.classList.remove('dragover')"
       ondrop="handleCoverImgDrop(event)">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(200,185,165,.3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-      <div class="ci-hint">Haga clic o arrastre la imagen de portada</div>
+      <div class="ci-hint">Click or drag cover image</div>
     </div>
     <div class="cover-img-preview" id="ci-preview" style="display:none">
       <img id="ci-preview-img" src="" alt="Cover"/>
-      <button class="btn-ci-rm" onclick="clearCoverImagen(event)" aria-label="Remove cover image">✕</button>
+      <button class="btn-ci-rm" onclick="clearCoverImage(event)" aria-label="Remove cover image">✕</button>
     </div>
     <div class="cover-img-name" id="ci-name"></div>
     <input type="file" id="ci-input" accept="image/jpeg,image/png,image/gif,image/webp" style="display:none" onchange="handleCoverImgFile(event)"/>
   </div>
   <hr class="sb-div"/>
   <div class="audio-link-block">
-    <div class="sb-title">Enlace de audio de la historia</div>
-    <label for="s-audio-link">URL de nube / YouTube</label>
-    <input type="text" id="s-audio-link" placeholder="Pegue el enlace de Google Drive, Dropbox o YouTube…" oninput="updateAudioLink()"/>
-    <div id="link-status" class="link-hint">El código QR se generará a partir de este enlace.</div>
+    <div class="sb-title">Story audio link</div>
+    <label for="s-audio-link">Cloud / YouTube URL</label>
+    <input type="text" id="s-audio-link" placeholder="Paste Google Drive, Dropbox, or YouTube link…" oninput="updateAudioLink()"/>
+    <div id="link-status" class="link-hint">QR code will be generated from this link.</div>
     <div id="qr-preview-wrap" class="qr-preview-wrap" style="display:none">
       <div id="qr-preview-box"></div>
-      <div class="qr-preview-label">Vista previa — aparece en la portada</div>
+      <div class="qr-preview-label">Preview — appears on cover page</div>
     </div>
   </div>
   <hr class="sb-div"/>
   <div>
-    <div class="sb-title" style="margin-bottom:.5rem">Páginas <span id="pg-count-lbl" style="opacity:.4">(0)</span></div>
+    <div class="sb-title" style="margin-bottom:.5rem">Pages <span id="pg-count-lbl" style="opacity:.4">(0)</span></div>
     <div class="page-list" id="page-list">
-      <div style="font-size:.73rem;color:rgba(200,185,165,.3);padding:4px 8px">Sin páginas aún</div>
+      <div style="font-size:.73rem;color:rgba(200,185,165,.3);padding:4px 8px">No pages yet</div>
     </div>
     <button class="btn-sb ghost" style="margin-top:7px" onclick="addPage()">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      Agregar página en blanco
+      Add blank page
     </button>
   </div>
   <hr class="sb-div"/>
   <div>
-    <div class="sb-title">Exportar e Imprimir</div>
-    <!-- Controles de fuente de impresión -->
+    <div class="sb-title">Export &amp; Print</div>
+    <!-- Print font controls -->
     <div style="margin-bottom:8px">
-      <div style="font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--sage-mid);margin-bottom:5px">Fuente de impresión</div>
+      <div style="font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--sage-mid);margin-bottom:5px">Print font</div>
       <select id="sel-font-family" style="width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:var(--r-sm);color:var(--parchment);font-family:Inter,sans-serif;font-size:.78rem;padding:6px 8px;margin-bottom:6px">
         <option value="'Noto Sans','Segoe UI','Helvetica Neue',Arial,sans-serif">Noto Sans</option>
         <option value="'Times New Roman',Times,serif">Times New Roman</option>
@@ -503,51 +503,51 @@ body{font-family:'Inter',sans-serif;background:var(--parchment);color:var(--ink)
         <option value="Verdana,Geneva,sans-serif">Verdana</option>
       </select>
       <div style="display:flex;align-items:center;gap:7px">
-        <span style="font-size:.72rem;color:var(--sage-mid);flex-shrink:0">Tamaño</span>
+        <span style="font-size:.72rem;color:var(--sage-mid);flex-shrink:0">Size</span>
         <button onclick="changeFontSize(-1)" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:4px;color:var(--parchment);width:22px;height:22px;cursor:pointer;font-size:14px;line-height:1;flex-shrink:0">−</button>
         <span id="font-size-display" style="font-size:.82rem;color:var(--parchment);min-width:36px;text-align:center;font-family:monospace">16 pt</span>
         <button onclick="changeFontSize(1)" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:4px;color:var(--parchment);width:22px;height:22px;cursor:pointer;font-size:14px;line-height:1;flex-shrink:0">+</button>
-        <button onclick="resetFontSize()" style="background:none;border:none;color:rgba(200,185,165,.4);font-size:.65rem;cursor:pointer;padding:0 2px;flex-shrink:0" title="Restablecer">↺</button>
+        <button onclick="resetFontSize()" style="background:none;border:none;color:rgba(200,185,165,.4);font-size:.65rem;cursor:pointer;padding:0 2px;flex-shrink:0" title="Reset to default">↺</button>
       </div>
     </div>
     <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:.75rem;color:var(--sage-mid);margin-bottom:8px">
       <input type="checkbox" id="chk-font-scale" checked style="accent-color:var(--gold);width:13px;height:13px;cursor:pointer;flex-shrink:0"/>
-      Ajustar fuente automáticamente
+      Auto-fit font to page
     </label>
     <button class="btn-sb print" onclick="printBook()">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-      Imprimir libro
+      Print book
     </button>
     <button class="btn-sb gold" onclick="exportMarkdown()">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 15V9l3 3 3-3v6"/><path d="M17 12h-3"/><path d="M17 15h-3"/></svg>
-      Exportar Markdown
+      Export Markdown
     </button>
     <button class="btn-sb ghost" id="btn-save" onclick="saveProject()">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      <span id="save-btn-label">Guardar proyecto (JSON)</span>
+      <span id="save-btn-label">Save project (JSON)</span>
     </button>
-    <button class="btn-sb ghost" onclick="saveProjectAs()" title="Guardar en un nuevo archivo">
+    <button class="btn-sb ghost" onclick="saveProjectAs()" title="Save to a new file">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/><line x1="18" y1="3" x2="18" y2="9"/><line x1="15" y1="6" x2="21" y2="6"/></svg>
-      Guardar como nuevo archivo
+      Save as new file
     </button>
     <button class="btn-sb ghost" onclick="loadProjectPicker()">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-      Cargar proyecto (JSON)
+      Load project (JSON)
     </button>
     <input type="file" id="load-input" accept=".json" style="display:none" onchange="loadFromInput(event)"/>
     <button class="btn-sb ghost" onclick="document.getElementById('merge-input').click()">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><line x1="6" y1="9" x2="6" y2="21"/></svg>
-      Combinar proyecto (JSON)
+      Merge project (JSON)
     </button>
     <input type="file" id="merge-input" accept=".json" style="display:none" onchange="mergeProject(event)"/>
     <hr class="sb-div" style="margin:8px 0"/>
     <button class="btn-sb" style="background:rgba(176,48,48,.15);color:#e8a0a0;border-color:rgba(176,48,48,.3);" onmouseover="this.style.background='rgba(176,48,48,.28)'" onmouseout="this.style.background='rgba(176,48,48,.15)'" onclick="newBook()">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="11" x2="12" y2="17"/><line x1="9" y1="14" x2="15" y2="14"/></svg>
-      Nuevo libro
+      New book
     </button>
   </div>
   <div style="font-size:.67rem;color:rgba(200,185,165,.3);line-height:1.6;margin-top:.25rem">
-    Las imágenes se incrustan en todas las exportaciones. El audio permanece en la nube — solo se almacena el enlace.
+    Images are embedded in all exports. Audio stays in the cloud — only the link is stored here.
   </div>
 </aside>
 
@@ -559,15 +559,15 @@ body{font-family:'Inter',sans-serif;background:var(--parchment);color:var(--ink)
     <img class="cv-bg-img" id="pc-bg-img" src="" alt="" style="display:none"/>
     <div class="cv-overlay"></div>
     <div class="cv-content">
-      <h1 id="pc-title">Libro Hablado</h1>
+      <h1 id="pc-title">Talking Book</h1>
       <div class="cv-speaker" id="pc-speaker"></div>
       <div class="cv-artist-line" id="pc-artist-line" style="display:none"></div>
       <div class="cv-editor-line" id="pc-editor-line" style="display:none"></div>
       <div class="cv-qr" id="pc-qr-wrap" style="display:none">
         <div id="pc-qr-box"></div>
       </div>
-      <div class="cv-qr-lbl" id="pc-qr-lbl" style="display:none">Escanee para escuchar la historia completa</div>
-      <div class="cv-no-qr" id="pc-no-qr" style="display:none">No se proporcionó enlace de audio.</div>
+      <div class="cv-qr-lbl" id="pc-qr-lbl" style="display:none">Scan to listen to the full story</div>
+      <div class="cv-no-qr" id="pc-no-qr" style="display:none">No audio link provided.</div>
       <div class="cv-copyright" id="pc-copyright"></div>
     </div>
   </div>
@@ -578,22 +578,22 @@ body{font-family:'Inter',sans-serif;background:var(--parchment);color:var(--ink)
   <!-- OVERVIEW -->
   <section class="overview-section">
     <div class="overview-toolbar">
-      <div class="ov-title">Páginas de la historia</div>
+      <div class="ov-title">Story pages</div>
       <button class="btn-act add" onclick="addPage()" style="margin-left:auto">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Agregar página
+        Add page
       </button>
       <button class="btn-act outline" onclick="document.getElementById('eaf-input').click()">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/></svg>
-        Importar archivo .eaf
+        Import .eaf file
       </button>
       <input type="file" id="eaf-input" accept=".eaf,.xml" style="display:none" onchange="handleEafFile(event)"/>
     </div>
     <div class="story-grid" id="story-grid">
       <div class="empty-state" style="grid-column:1/-1">
         <svg width="48" height="48" viewBox="0 0 32 32" fill="none"><path d="M16 4C11 4 5 7 5 9L5 27C5 27 9 25 16 25" stroke="#1C2B1A" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M16 4C21 4 27 7 27 9L27 27C27 27 23 25 16 25" stroke="#1C2B1A" stroke-width="1.5" stroke-linecap="round" fill="none"/><line x1="16" y1="4" x2="16" y2="25" stroke="#1C2B1A" stroke-width="1" stroke-dasharray="2 2"/></svg>
-        <p>Sin páginas aún</p>
-        <small>Agregue una página en blanco o importe un archivo .eaf para comenzar</small>
+        <p>No pages yet</p>
+        <small>Add a blank page or import a .eaf file to get started</small>
       </div>
     </div>
   </section>
@@ -604,25 +604,25 @@ body{font-family:'Inter',sans-serif;background:var(--parchment);color:var(--ink)
       <div class="editor-title" id="ed-title">Page 1</div>
       <div class="page-nav">
         <button class="pnav-btn" id="btn-prev" onclick="navigatePage(-1)" disabled>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>Anterior
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>Prev
         </button>
         <span class="pnav-counter" id="pnav-counter">1 of 1</span>
         <button class="pnav-btn" id="btn-next" onclick="navigatePage(1)" disabled>
-          Siguiente<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          Next<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
         </button>
       </div>
     </div>
     <div class="card">
       <div class="card-head">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3A4E37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-        <h2 id="ed-card-title">Contenido de la página</h2>
+        <h2 id="ed-card-title">Page content</h2>
       </div>
       <div class="card-body">
         <!-- TRANSCRIPTION -->
         <div class="fg">
-          <label for="p-text">Transcripción</label>
-          <textarea id="p-text" placeholder="Escriba o pegue la transcripción de esta página, o importe desde un archivo .eaf…"></textarea>
-          <div class="hint">Este texto aparece en la página impresa.</div>
+          <label for="p-text">Transcription</label>
+          <textarea id="p-text" placeholder="Type or paste the transcription for this page, or import from a .eaf file above…"></textarea>
+          <div class="hint">This text appears on the printed page.</div>
         </div>
 
         <!-- MEDIA: image -->
@@ -630,7 +630,7 @@ body{font-family:'Inter',sans-serif;background:var(--parchment);color:var(--ink)
           <div class="media-panel">
             <div class="mp-title">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-              Imagen
+              Image
             </div>
             <div class="drop-zone" id="img-drop"
               onclick="document.getElementById('img-input').click()"
@@ -638,11 +638,11 @@ body{font-family:'Inter',sans-serif;background:var(--parchment);color:var(--ink)
               ondragleave="this.classList.remove('dragover')"
               ondrop="handleImgDrop(event)">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:.28"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-              <div class="drop-hint">Haga clic o arrastre .jpg / .png</div>
+              <div class="drop-hint">Click or drag .jpg / .png</div>
             </div>
             <div class="img-wrap" id="img-wrap" style="display:none">
-              <img id="img-preview" src="" alt="Imagen de página"/>
-              <button class="btn-rm" onclick="clearImagen()" aria-label="Remove">✕</button>
+              <img id="img-preview" src="" alt="Page image"/>
+              <button class="btn-rm" onclick="clearImage()" aria-label="Remove">✕</button>
             </div>
             <div class="img-name" id="img-name" style="display:none">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/></svg>
@@ -655,16 +655,16 @@ body{font-family:'Inter',sans-serif;background:var(--parchment);color:var(--ink)
           <div class="media-panel">
             <div class="mp-title">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              Info de página
+              Page info
             </div>
             <div style="font-size:.75rem;color:var(--ink-soft);line-height:1.7">
-              <div><strong id="pi-num" style="color:var(--ink)">Página —</strong></div>
+              <div><strong id="pi-num" style="color:var(--ink)">Page —</strong></div>
               <div id="pi-eaf-ref" style="font-size:.7rem;opacity:.6;font-family:monospace"></div>
               <div id="pi-img-status" style="margin-top:4px"></div>
               <div id="pi-txt-status" style="margin-top:2px"></div>
             </div>
             <hr style="border:none;border-top:1px solid var(--parch-drk);margin:4px 0"/>
-            <div style="font-size:.72rem;color:var(--ink-soft)">QR de audio:</div>
+            <div style="font-size:.72rem;color:var(--ink-soft)">Story audio QR:</div>
             <div id="pi-qr-status" style="font-size:.72rem"></div>
           </div>
         </div>
@@ -672,15 +672,15 @@ body{font-family:'Inter',sans-serif;background:var(--parchment);color:var(--ink)
         <div class="page-actions">
           <button class="btn-act danger" onclick="deletePage()">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
-            Eliminar página
+            Delete page
           </button>
           <div style="display:flex;gap:7px">
-            <button class="btn-act outline" onclick="savePageAndGo(-1)">← Guardar y anterior</button>
+            <button class="btn-act outline" onclick="savePageAndGo(-1)">← Save &amp; prev</button>
             <button class="btn-act primary" onclick="savePage()">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              Guardar página
+              Save page
             </button>
-            <button class="btn-act outline" onclick="savePageAndGo(1)">Guardar y siguiente →</button>
+            <button class="btn-act outline" onclick="savePageAndGo(1)">Save &amp; next →</button>
           </div>
         </div>
       </div>
@@ -693,11 +693,11 @@ body{font-family:'Inter',sans-serif;background:var(--parchment);color:var(--ink)
 <!-- EAF TIER MODAL -->
 <div class="modal-overlay" id="eaf-modal" style="display:none">
   <div class="modal">
-    <h3>Importar archivo ELAN .eaf</h3>
-    <p id="eaf-modal-desc">Seleccione el nivel cuyas anotaciones se convertirán en páginas. Cada anotación se convierte en una página, ordenada por tiempo de inicio.</p>
+    <h3>Import ELAN .eaf file</h3>
+    <p id="eaf-modal-desc">Select the tier whose annotations will become story pages. Each annotation becomes one page, ordered by start time.</p>
     <div class="modal-tier-list" id="tier-list"></div>
     <div class="modal-actions">
-      <button class="btn-act outline" onclick="closeEafModal()">Cancelar</button>
+      <button class="btn-act outline" onclick="closeEafModal()">Cancel</button>
     </div>
   </div>
 </div>
@@ -705,7 +705,7 @@ body{font-family:'Inter',sans-serif;background:var(--parchment);color:var(--ink)
 <!-- MERGE MODAL -->
 <div class="modal-overlay" id="merge-modal" style="display:none">
   <div class="modal">
-    <h3>Combinar proyecto</h3>
+    <h3>Merge project</h3>
     <p id="merge-desc"></p>
     <div id="merge-conflict-list" class="modal-tier-list" style="display:none"></div>
     <div class="modal-actions" id="merge-actions"></div>
@@ -725,7 +725,7 @@ let coverIsLandscape = false;
 // ── BADGE ──
 function updateBadge() {
   const t = document.getElementById('s-title').value.trim();
-  document.getElementById('story-badge').textContent = t || 'Historia sin título';
+  document.getElementById('story-badge').textContent = t || 'Untitled story';
 }
 
 // ── STATS ──
@@ -742,7 +742,7 @@ function handleCoverImgDrop(e) {
   e.preventDefault(); document.getElementById('ci-drop').classList.remove('dragover');
   const f = e.dataTransfer.files[0];
   if (f && f.type.startsWith('image/')) loadCoverImg(f);
-  else showToast('Por favor suelte un archivo de imagen', 'err');
+  else showToast('Please drop an image file', 'err');
 }
 function loadCoverImg(file) {
   const r = new FileReader();
@@ -758,11 +758,11 @@ function loadCoverImg(file) {
       coverIsLandscape = _oi.naturalWidth > _oi.naturalHeight;
     };
     _oi.src = coverImageDataURL;
-    showToast('Imagen de portada loaded', 'ok');
+    showToast('Cover image loaded', 'ok');
   };
   r.readAsDataURL(file);
 }
-function clearCoverImagen(e) {
+function clearCoverImage(e) {
   if (e) e.stopPropagation();
   coverImageDataURL = null;
   coverIsLandscape = false;
@@ -784,7 +784,7 @@ function _doUpdateAudioLink() {
   const box = document.getElementById('qr-preview-box');
   box.innerHTML = '';
   if (!val) {
-    statusEl.textContent = 'El código QR se generará a partir de este enlace.';
+    statusEl.textContent = 'QR code will be generated from this link.';
     statusEl.className = 'link-hint';
     wrap.style.display = 'none';
     updatePageInfoPanel();
@@ -793,10 +793,10 @@ function _doUpdateAudioLink() {
   const isYT = val.includes('youtube.com') || val.includes('youtu.be');
   const isDrive = val.includes('drive.google.com');
   const isDropbox = val.includes('dropbox.com');
-  if (isYT) { statusEl.textContent = '✓ Enlace de YouTube detectado'; statusEl.className = 'link-ok'; }
-  else if (isDrive || isDropbox) { statusEl.textContent = '✓ Enlace en la nube detectado — asegúrese de que el uso compartido esté configurado como "Cualquier persona con el enlace"'; statusEl.className = 'link-ok'; }
-  else if (val.startsWith('http')) { statusEl.textContent = '⚠ Enlace aceptado — confirme que sea accesible públicamente'; statusEl.className = 'link-warn'; }
-  else { statusEl.textContent = '⚠ Pegue la URL completa https://'; statusEl.className = 'link-warn'; wrap.style.display = 'none'; updatePageInfoPanel(); return; }
+  if (isYT) { statusEl.textContent = '✓ YouTube link detected'; statusEl.className = 'link-ok'; }
+  else if (isDrive || isDropbox) { statusEl.textContent = '✓ Cloud link detected — ensure sharing is set to "Anyone with the link"'; statusEl.className = 'link-ok'; }
+  else if (val.startsWith('http')) { statusEl.textContent = '⚠ Link accepted — confirm it is publicly accessible'; statusEl.className = 'link-warn'; }
+  else { statusEl.textContent = '⚠ Paste the full https:// URL'; statusEl.className = 'link-warn'; wrap.style.display = 'none'; updatePageInfoPanel(); return; }
   try {
     new QRCode(box, {text:val, width:96, height:96, colorDark:'#1C2B1A', colorLight:'#FFFFFF', correctLevel:QRCode.CorrectLevel.M});
     wrap.style.display = 'block';
@@ -816,7 +816,7 @@ function handleEafFile(e) {
 function parseEaf(xmlText, filename) {
   let doc;
   try { doc = new DOMParser().parseFromString(xmlText, 'application/xml'); }
-  catch(e) { showToast('No se pudo analizar el archivo .eaf', 'err'); return; }
+  catch(e) { showToast('Could not parse .eaf file', 'err'); return; }
 
   // Build time slot map
   const timeSlots = {};
@@ -828,34 +828,34 @@ function parseEaf(xmlText, filename) {
   const tiers = [];
   doc.querySelectorAll('TIER').forEach(tier => {
     const name = tier.getAttribute('TIER_ID');
-    const anotaciones = [];
+    const annotations = [];
     tier.querySelectorAll('ALIGNABLE_ANNOTATION').forEach(ann => {
       const id = ann.getAttribute('ANNOTATION_ID');
       const ts1 = ann.getAttribute('TIME_SLOT_REF1');
       const ts2 = ann.getAttribute('TIME_SLOT_REF2');
       const value = ann.querySelector('ANNOTATION_VALUE')?.textContent || '';
-      anotaciones.push({ id, start: timeSlots[ts1]||0, end: timeSlots[ts2]||0, value });
+      annotations.push({ id, start: timeSlots[ts1]||0, end: timeSlots[ts2]||0, value });
     });
-    // Also handle ref anotaciones (non-time-aligned, child tiers)
+    // Also handle ref annotations (non-time-aligned, child tiers)
     tier.querySelectorAll('REF_ANNOTATION').forEach(ann => {
       const id = ann.getAttribute('ANNOTATION_ID');
       const value = ann.querySelector('ANNOTATION_VALUE')?.textContent || '';
-      anotaciones.push({ id, start: 0, end: 0, value });
+      annotations.push({ id, start: 0, end: 0, value });
     });
-    if (anotaciones.length > 0) tiers.push({ name, anotaciones });
+    if (annotations.length > 0) tiers.push({ name, annotations });
   });
 
-  if (tiers.length === 0) { showToast('No tiers with anotaciones found in this .eaf file', 'err'); return; }
+  if (tiers.length === 0) { showToast('No tiers with annotations found in this .eaf file', 'err'); return; }
 
   pendingEafTiers = tiers;
   document.getElementById('eaf-modal-desc').textContent =
-    'Se encontraron ' + tiers.length + ' nivel(es) en ' + filename + '. Select the tier whose anotaciones will become story pages.';
+    'Found ' + tiers.length + ' tier(s) in ' + filename + '. Select the tier whose annotations will become story pages.';
 
   const list = document.getElementById('tier-list');
   list.innerHTML = tiers.map(t => `
     <button class="tier-btn" onclick="importTier('${escAttr(t.name)}')">
       <span>${esc(t.name)}</span>
-      <span class="ann-count">${t.anotaciones.length} anotaciones</span>
+      <span class="ann-count">${t.annotations.length} annotations</span>
     </button>
   `).join('');
 
@@ -869,7 +869,7 @@ function importTier(tierName) {
   closeEafModal();
 
   // Sort by start time
-  const sorted = [...tier.anotaciones].sort((a,b) => a.start - b.start);
+  const sorted = [...tier.annotations].sort((a,b) => a.start - b.start);
 
   const newPages = sorted.map(ann => ({
     id: Date.now() + Math.random(),
@@ -880,7 +880,7 @@ function importTier(tierName) {
   }));
 
   if (pages.length > 0) {
-    if (!confirm('Esto agregará ' + newPages.length + ' páginas del nivel "' + tierName + '" a las ' + pages.length + ' página(s) existentes. ¿Continuar?')) return;
+    if (!confirm('This will add ' + newPages.length + ' pages from tier "' + tierName + '" to your existing ' + pages.length + ' page(s). Continue?')) return;
     pages = pages.concat(newPages);
   } else {
     pages = newPages;
@@ -889,7 +889,7 @@ function importTier(tierName) {
   currentIdx = 0;
   openEditor(0);
   renderSidebar(); renderOverview(); updateStats();
-  showToast('Se importaron ' + newPages.length + ' páginas del nivel "' + tierName + '"', 'ok');
+  showToast('Imported ' + newPages.length + ' pages from tier "' + tierName + '"', 'ok');
 }
 
 function closeEafModal() {
@@ -907,11 +907,11 @@ function addPage() {
   currentIdx = pages.length - 1;
   renderSidebar(); renderOverview(); updateStats();
   openEditor(currentIdx);
-  showToast('Página ' + pages.length + ' agregada', 'ok');
+  showToast('Page ' + pages.length + ' added', 'ok');
 }
 function deletePage() {
   if (currentIdx === null) return;
-  if (!confirm('Eliminar página ' + (currentIdx+1) + '?')) return;
+  if (!confirm('Delete page ' + (currentIdx+1) + '?')) return;
   pages.splice(currentIdx, 1);
   if (!pages.length) { currentIdx = null; closeEditor(); }
   else { currentIdx = Math.min(currentIdx, pages.length-1); openEditor(currentIdx); }
@@ -936,9 +936,9 @@ function openEditor(idx) {
   currentIdx = idx;
   const p = pages[idx];
   document.getElementById('page-editor').style.display = 'block';
-  document.getElementById('ed-title').textContent = 'Página ' + (idx+1);
-  document.getElementById('ed-card-title').textContent = 'Página ' + (idx+1) + ' de ' + pages.length;
-  document.getElementById('pnav-counter').textContent = (idx+1) + ' de ' + pages.length;
+  document.getElementById('ed-title').textContent = 'Page ' + (idx+1);
+  document.getElementById('ed-card-title').textContent = 'Page ' + (idx+1) + ' of ' + pages.length;
+  document.getElementById('pnav-counter').textContent = (idx+1) + ' of ' + pages.length;
   document.getElementById('btn-prev').disabled = idx === 0;
   document.getElementById('btn-next').disabled = idx === pages.length-1;
   document.getElementById('p-text').value = p.text || '';
@@ -965,24 +965,24 @@ function savePage() {
   if (currentIdx === null) return;
   pages[currentIdx].text = document.getElementById('p-text').value;
   renderSidebar(); renderOverview(); updateStats();
-  showToast('Página ' + (currentIdx+1) + ' guardada', 'ok');
+  showToast('Page ' + (currentIdx+1) + ' saved', 'ok');
 }
 
 function updatePageInfoPanel() {
   if (currentIdx === null || !pages[currentIdx]) return;
   const p = pages[currentIdx];
   const link = document.getElementById('s-audio-link').value.trim();
-  document.getElementById('pi-num').textContent = 'Página ' + (currentIdx+1) + ' de ' + pages.length;
-  document.getElementById('pi-eaf-ref').textContent = p.eafRef ? 'Ref. ELAN: ' + p.eafRef : '';
+  document.getElementById('pi-num').textContent = 'Page ' + (currentIdx+1) + ' of ' + pages.length;
+  document.getElementById('pi-eaf-ref').textContent = p.eafRef ? 'ELAN ref: ' + p.eafRef : '';
   document.getElementById('pi-img-status').innerHTML = p.imageDataURL
-    ? '<span style="color:#3A7A45">✓ Imagen loaded</span>'
-    : '<span style="color:#9A6318">○ Sin imagen aún</span>';
+    ? '<span style="color:#3A7A45">✓ Image loaded</span>'
+    : '<span style="color:#9A6318">○ No image yet</span>';
   document.getElementById('pi-txt-status').innerHTML = (p.text && p.text.trim())
-    ? '<span style="color:#3A7A45">✓ Transcripción present</span>'
-    : '<span style="color:#9A6318">○ Sin transcripción aún</span>';
+    ? '<span style="color:#3A7A45">✓ Transcription present</span>'
+    : '<span style="color:#9A6318">○ No transcription yet</span>';
   document.getElementById('pi-qr-status').innerHTML = link
-    ? '<span style="color:#3A7A45">✓ Enlace de audio establecido</span>'
-    : '<span style="color:#9A6318">○ Sin enlace de audio — agregue uno en la barra lateral</span>';
+    ? '<span style="color:#3A7A45">✓ Audio link set</span>'
+    : '<span style="color:#9A6318">○ No audio link set — add one in the sidebar</span>';
 }
 
 // ── IMAGE HANDLERS ──
@@ -1008,7 +1008,7 @@ function loadImg(file) {
   };
   r.readAsDataURL(file);
 }
-function clearImagen() {
+function clearImage() {
   if (currentIdx === null) return;
   pages[currentIdx].imageDataURL = null;
   pages[currentIdx].imageFilename = '';
@@ -1024,13 +1024,13 @@ function clearImagen() {
 function renderSidebar() {
   const list = document.getElementById('page-list');
   if (!pages.length) {
-    list.innerHTML = '<div style="font-size:.73rem;color:rgba(200,185,165,.3);padding:4px 8px">Sin páginas aún</div>';
+    list.innerHTML = '<div style="font-size:.73rem;color:rgba(200,185,165,.3);padding:4px 8px">No pages yet</div>';
     return;
   }
   list.innerHTML = pages.map((p,i) => `
     <div class="page-list-item${currentIdx===i?' active':''}" onclick="gotoPage(${i})">
       <span class="pg-num">${String(i+1).padStart(2,'0')}</span>
-      <span class="pg-title">${p.text ? esc(p.text.slice(0,28))+(p.text.length>28?'…':'') : '<em style="opacity:.4">sin texto</em>'}</span>
+      <span class="pg-title">${p.text ? esc(p.text.slice(0,28))+(p.text.length>28?'…':'') : '<em style="opacity:.4">no text</em>'}</span>
       ${p.imageDataURL?'<span class="dot img" title="Has image"></span>':''}
       ${p.text&&p.text.trim()?'<span class="dot txt" title="Has text"></span>':''}
     </div>
@@ -1046,20 +1046,20 @@ function gotoPage(idx) {
 function renderOverview() {
   const grid = document.getElementById('story-grid');
   if (!pages.length) {
-    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><svg width="48" height="48" viewBox="0 0 32 32" fill="none"><path d="M16 4C11 4 5 7 5 9L5 27C5 27 9 25 16 25" stroke="#1C2B1A" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M16 4C21 4 27 7 27 9L27 27C27 27 23 25 16 25" stroke="#1C2B1A" stroke-width="1.5" stroke-linecap="round" fill="none"/><line x1="16" y1="4" x2="16" y2="25" stroke="#1C2B1A" stroke-width="1" stroke-dasharray="2 2"/></svg><p>Sin páginas aún</p><small>Agregue una página en blanco o importe un archivo .eaf</small></div>';
+    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><svg width="48" height="48" viewBox="0 0 32 32" fill="none"><path d="M16 4C11 4 5 7 5 9L5 27C5 27 9 25 16 25" stroke="#1C2B1A" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M16 4C21 4 27 7 27 9L27 27C27 27 23 25 16 25" stroke="#1C2B1A" stroke-width="1.5" stroke-linecap="round" fill="none"/><line x1="16" y1="4" x2="16" y2="25" stroke="#1C2B1A" stroke-width="1" stroke-dasharray="2 2"/></svg><p>No pages yet</p><small>Add a blank page or import a .eaf file</small></div>';
     return;
   }
   grid.innerHTML = pages.map((p,i) => `
     <div class="story-thumb${currentIdx===i?' active-page':''}" onclick="gotoPage(${i})" title="Go to page ${i+1}">
       ${p.imageDataURL
-        ? `<img class="thumb-img" src="${p.imageDataURL}" alt="Página ${i+1}"/>`
+        ? `<img class="thumb-img" src="${p.imageDataURL}" alt="Page ${i+1}"/>`
         : `<div class="no-thumb"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8CCAF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>`}
       <div class="thumb-body">
-        <div class="thumb-pg">Página ${i+1}${p.eafRef?' · '+p.eafRef:''}</div>
-        <div class="thumb-text">${p.text ? esc(p.text.slice(0,80)) : '<em style="opacity:.4">Sin texto</em>'}</div>
+        <div class="thumb-pg">Page ${i+1}${p.eafRef?' · '+p.eafRef:''}</div>
+        <div class="thumb-text">${p.text ? esc(p.text.slice(0,80)) : '<em style="opacity:.4">No text</em>'}</div>
       </div>
       <div class="thumb-badges">
-        ${p.imageDataURL?'<span class="badge img">Imagen</span>':''}
+        ${p.imageDataURL?'<span class="badge img">Image</span>':''}
         ${p.text&&p.text.trim()?'<span class="badge txt">Text</span>':''}
       </div>
     </div>
@@ -1068,10 +1068,10 @@ function renderOverview() {
 
 // ── PRINT ──
 function printBook() {
-  if (!pages.length) { showToast('Sin páginas para imprimir', 'err'); return; }
+  if (!pages.length) { showToast('No pages to print', 'err'); return; }
   saveCurrentIfOpen();
 
-  const title  = document.getElementById('s-title').value.trim()   || 'Libro Hablado';
+  const title  = document.getElementById('s-title').value.trim()   || 'Talking Book';
   const lang   = document.getElementById('s-lang').value.trim();
   const speaker= document.getElementById('s-speaker').value.trim();
   const cls    = document.getElementById('s-editor').value.trim();
@@ -1081,16 +1081,16 @@ function printBook() {
 
   // Cover
   const editors = cls ? cls.split(';').map(s=>s.trim()).filter(Boolean) : [];
-  const editorLabel = editors.length > 1 ? 'Equipo del Proyecto: ' : 'Equipo del Proyecto: ';
+  const editorLabel = editors.length > 1 ? 'Project Team: ' : 'Project Team: ';
   const editorDisplay = editors.length > 1
-    ? editors.slice(0,-1).join(', ') + ' y ' + editors[editors.length-1]
+    ? editors.slice(0,-1).join(', ') + ' and ' + editors[editors.length-1]
     : editors[0] || '';
 
   document.getElementById('pc-title').textContent = title;
-  document.getElementById('pc-speaker').textContent = speaker ? 'Narrador: ' + speaker : '';
+  document.getElementById('pc-speaker').textContent = speaker ? 'Speaker: ' + speaker : '';
   const artistLine = document.getElementById('pc-artist-line');
   if (artist) {
-    artistLine.textContent = 'Artista: ' + artist;
+    artistLine.textContent = 'Artist: ' + artist;
     artistLine.style.display = 'block';
   } else {
     artistLine.style.display = 'none';
@@ -1106,7 +1106,7 @@ function printBook() {
   const copyrightParts = [speaker, artist, ...editors].filter(Boolean);
   document.getElementById('pc-copyright').textContent = `© ${printYear} ${copyrightParts.join(' · ')}`.trim();
 
-  // Imagen de portada
+  // Cover image
   const coverEl = document.getElementById('print-cover');
   const bgImg = document.getElementById('pc-bg-img');
   if (coverImageDataURL) {
@@ -1221,16 +1221,16 @@ function printBook() {
     container.appendChild(pg);
   });
 
-    showToast('Preparando diseño de impresión…', 'info');
+  showToast('Preparing print layout…', 'info');
   setTimeout(()=>window.print(), 700);
 }
 
 // ── MARKDOWN EXPORT ──
 function exportMarkdown() {
-  if (!pages.length) { showToast('Nada para exportar', 'err'); return; }
+  if (!pages.length) { showToast('Nothing to export', 'err'); return; }
   saveCurrentIfOpen();
 
-  const title  = document.getElementById('s-title').value.trim()   || 'Libro Hablado';
+  const title  = document.getElementById('s-title').value.trim()   || 'Talking Book';
   const lang   = document.getElementById('s-lang').value.trim();
   const speaker= document.getElementById('s-speaker').value.trim();
   const cls    = document.getElementById('s-editor').value.trim();
@@ -1299,7 +1299,7 @@ function exportMarkdown() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a'); a.href=url; a.download=fname+'_talking_book.md'; a.click();
   URL.revokeObjectURL(url);
-  showToast('Markdown exportado', 'ok');
+  showToast('Markdown exported', 'ok');
 }
 
 // Generate a QR code and return it as a base64 PNG data URL
@@ -1316,18 +1316,19 @@ function generateQRDataURL(text, size) {
   } catch(e) { return null; }
 }
 
-// ── GUARDAR / CARGAR PROYECTO ──
+// ── SAVE / LOAD PROJECT ──
+// File System Access API handle — set when user picks a file via Save As or Load
 let _fileHandle = null;
 
 function buildProjectData() {
   saveCurrentIfOpen();
   return {
-    version: 2,
-    title:    document.getElementById('s-title').value.trim(),
-    language: document.getElementById('s-lang').value.trim(),
-    speaker:  document.getElementById('s-speaker').value.trim(),
-    editor:   document.getElementById('s-editor').value.trim(),
-    artist:   document.getElementById('s-artist').value.trim(),
+    version:2,
+    title:   document.getElementById('s-title').value.trim(),
+    language:document.getElementById('s-lang').value.trim(),
+    speaker: document.getElementById('s-speaker').value.trim(),
+    editor:  document.getElementById('s-editor').value.trim(),
+    artist:  document.getElementById('s-artist').value.trim(),
     audioLink: document.getElementById('s-audio-link').value.trim(),
     coverImageDataURL: coverImageDataURL,
     savedAt: new Date().toISOString(),
@@ -1336,42 +1337,45 @@ function buildProjectData() {
 }
 
 async function saveProject() {
-  if (!pages.length) { showToast('Nada para guardar aún', 'err'); return; }
+  if (!pages.length) { showToast('Nothing to save yet', 'err'); return; }
   const data = buildProjectData();
   const json = JSON.stringify(data, null, 2);
+  // If we have a file handle from a previous Save As or Load, write directly to it
   if (_fileHandle && window.showSaveFilePicker) {
     try {
       const writable = await _fileHandle.createWritable();
       await writable.write(json);
       await writable.close();
-      showToast('Proyecto guardado', 'ok');
+      showToast('Project saved', 'ok');
       return;
     } catch(e) {
       if (e.name === 'AbortError') return;
+      // Handle lost — fall through to Save As
       _fileHandle = null;
       updateSaveLabel();
     }
   }
+  // No handle — do Save As
   await saveProjectAs(data);
 }
 
 async function saveProjectAs(dataArg) {
-  if (!pages.length) { showToast('Nada para guardar aún', 'err'); return; }
+  if (!pages.length) { showToast('Nothing to save yet', 'err'); return; }
   const data = dataArg || buildProjectData();
   const json = JSON.stringify(data, null, 2);
-  const fname = (data.title || 'libro_hablado').replace(/\s+/g,'_').replace(/[^a-zA-Z0-9_-]/g,'');
+  const fname = (data.title||'talking_book').replace(/\s+/g,'_').replace(/[^a-zA-Z0-9_-]/g,'');
   if (window.showSaveFilePicker) {
     try {
       const handle = await window.showSaveFilePicker({
-        suggestedName: fname + '_proyecto.json',
-        types: [{ description: 'Archivo de proyecto JSON', accept: { 'application/json': ['.json'] } }]
+        suggestedName: fname + '_project.json',
+        types: [{ description: 'JSON project file', accept: { 'application/json': ['.json'] } }]
       });
       const writable = await handle.createWritable();
       await writable.write(json);
       await writable.close();
       _fileHandle = handle;
       updateSaveLabel(handle.name);
-      showToast('Proyecto guardado', 'ok');
+      showToast('Project saved', 'ok');
     } catch(e) {
       if (e.name !== 'AbortError') fallbackDownload(json, fname);
     }
@@ -1381,25 +1385,24 @@ async function saveProjectAs(dataArg) {
 }
 
 function fallbackDownload(json, fname) {
-  const blob = new Blob([json], { type: 'application/json' });
+  const blob = new Blob([json], {type:'application/json'});
   const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = fname + '_proyecto.json'; a.click();
+  const a = document.createElement('a'); a.href=url; a.download=fname+'_project.json'; a.click();
   URL.revokeObjectURL(url);
-  showToast('Proyecto guardado', 'ok');
+  showToast('Project saved', 'ok');
 }
 
 function updateSaveLabel(filename) {
   const lbl = document.getElementById('save-btn-label');
   if (!lbl) return;
-  lbl.textContent = filename ? 'Guardar — ' + filename : 'Guardar proyecto (JSON)';
+  lbl.textContent = filename ? 'Save — ' + filename : 'Save project (JSON)';
 }
 
 async function loadProjectPicker() {
   if (window.showOpenFilePicker) {
     try {
       const [handle] = await window.showOpenFilePicker({
-        types: [{ description: 'Archivo de proyecto JSON', accept: { 'application/json': ['.json'] } }]
+        types: [{ description: 'JSON project file', accept: { 'application/json': ['.json'] } }]
       });
       const file = await handle.getFile();
       const text = await file.text();
@@ -1429,13 +1432,13 @@ function loadFromInput(event) {
 function applyProjectData(text) {
   try {
     const data = JSON.parse(text);
-    if (pages.length > 0 && !confirm('¿Cargar este proyecto? El trabajo actual será reemplazado.')) return;
-    document.getElementById('s-title').value      = data.title      || '';
-    document.getElementById('s-lang').value       = data.language   || '';
-    document.getElementById('s-speaker').value    = data.speaker    || '';
-    document.getElementById('s-editor').value     = data.editor     || '';
-    document.getElementById('s-artist').value     = data.artist     || '';
-    document.getElementById('s-audio-link').value = data.audioLink  || '';
+    if (pages.length>0 && !confirm('Load this project? Your current work will be replaced.')) return;
+    document.getElementById('s-title').value    = data.title      || '';
+    document.getElementById('s-lang').value     = data.language   || '';
+    document.getElementById('s-speaker').value  = data.speaker    || '';
+    document.getElementById('s-editor').value   = data.editor     || '';
+    document.getElementById('s-artist').value   = data.artist     || '';
+    document.getElementById('s-audio-link').value = data.audioLink || '';
     updateBadge(); _doUpdateAudioLink();
     if (data.coverImageDataURL) {
       coverImageDataURL = data.coverImageDataURL;
@@ -1445,19 +1448,19 @@ function applyProjectData(text) {
       const _ri = new Image();
       _ri.onload = () => { coverIsLandscape = _ri.naturalWidth > _ri.naturalHeight; };
       _ri.src = coverImageDataURL;
-      document.getElementById('ci-name').textContent = 'Cargado desde el proyecto';
+      document.getElementById('ci-name').textContent = 'Loaded from project';
     } else {
-      clearCoverImagen();
+      clearCoverImage();
     }
     pages = Array.isArray(data.pages) ? data.pages : [];
     currentIdx = pages.length > 0 ? 0 : null;
     if (currentIdx !== null) openEditor(0); else closeEditor();
     renderSidebar(); renderOverview(); updateStats();
-    showToast('Proyecto cargado — ' + pages.length + ' páginas', 'ok');
-  } catch { showToast('No se pudo leer el archivo', 'err'); }
+    showToast('Project loaded — '+pages.length+' pages', 'ok');
+  } catch { showToast('Could not read file', 'err'); }
 }
 
-// ── COMBINAR PROYECTO ──
+// ── MERGE PROJECT ──
 let _pendingMerge = null;
 
 function mergeProject(event) {
@@ -1467,10 +1470,11 @@ function mergeProject(event) {
     try {
       const incoming = JSON.parse(e.target.result);
       if (!Array.isArray(incoming.pages) || incoming.pages.length === 0) {
-        showToast('No se encontraron páginas en ese archivo', 'err'); return;
+        showToast('No pages found in that file', 'err'); return;
       }
       saveCurrentIfOpen();
 
+      // Find new pages (by id), duplicate pages (same id, same text), and conflicts (same id, different text)
       const currentIds = new Map(pages.map(p => [p.id, p]));
       const newPages = [], conflicts = [], duplicates = [];
 
@@ -1487,47 +1491,57 @@ function mergeProject(event) {
         }
       });
 
+      // Also check if incoming has a newer audio link or cover image
+      const incomingMeta = {
+        audioLink: incoming.audioLink || '',
+        coverImageDataURL: incoming.coverImageDataURL || null,
+        title: incoming.title || '',
+      };
+
       if (conflicts.length === 0) {
+        // No conflicts — merge immediately
         pages = [...pages, ...newPages];
+        // Sort by eafRef if present, otherwise keep existing order
         if (pages.every(p => p.eafRef)) {
           pages.sort((a,b) => a.eafRef.localeCompare(b.eafRef, undefined, {numeric:true}));
         }
         renderSidebar(); renderOverview(); updateStats();
         if (currentIdx !== null) openEditor(currentIdx);
-        const msg = `Combinado: ${newPages.length} página(s) nueva(s) agregada(s)` +
-          (duplicates.length ? `, ${duplicates.length} página(s) idéntica(s) omitida(s)` : '') + '.';
+        const msg = `Merged: ${newPages.length} new page(s) added` +
+          (duplicates.length ? `, ${duplicates.length} identical page(s) skipped` : '') + '.';
         showToast(msg, 'ok');
         document.getElementById('merge-input').value = '';
         return;
       }
 
-      _pendingMerge = { newPages, conflicts, duplicates };
+      // Show conflict resolution modal
+      _pendingMerge = { newPages, conflicts, duplicates, incomingMeta };
       const desc = document.getElementById('merge-desc');
       desc.innerHTML =
-        `<strong>${newPages.length}</strong> página(s) nueva(s) se agregarán. ` +
-        `<strong>${conflicts.length}</strong> página(s) tienen ediciones en conflicto — elija qué versión conservar:` +
-        (duplicates.length ? `<br/><span style="font-size:.8em;opacity:.7">${duplicates.length} página(s) idéntica(s) se omitirán.</span>` : '');
+        `<strong>${newPages.length}</strong> new page(s) will be added. ` +
+        `<strong>${conflicts.length}</strong> page(s) have conflicting edits — choose which version to keep for each:` +
+        (duplicates.length ? `<br/><span style="font-size:.8em;opacity:.7">${duplicates.length} identical page(s) will be skipped.</span>` : '');
 
       const list = document.getElementById('merge-conflict-list');
       list.style.display = 'block';
       list.innerHTML = conflicts.map((c,i) => `
         <div style="padding:10px 0;border-bottom:1px solid var(--parch-drk)">
           <div style="font-size:.72rem;font-weight:600;color:var(--ink-soft);margin-bottom:6px">
-            Conflicto de página — ID ${String(c.existing.id).slice(-6)}
+            Page conflict — ID ${String(c.existing.id).slice(-6)}
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
             <label style="cursor:pointer">
               <input type="radio" name="conflict-${i}" value="existing" checked style="margin-right:4px"/>
-              <strong style="font-size:.78rem">Conservar actual</strong>
+              <strong style="font-size:.78rem">Keep current</strong>
               <div style="font-size:.72rem;color:var(--ink-soft);margin-top:3px;line-height:1.4">
-                ${esc((c.existing.text||'').slice(0,80))||'<em>sin texto</em>'}
+                ${esc((c.existing.text||'').slice(0,80))||'<em>no text</em>'}
               </div>
             </label>
             <label style="cursor:pointer">
               <input type="radio" name="conflict-${i}" value="incoming" style="margin-right:4px"/>
-              <strong style="font-size:.78rem">Usar entrante</strong>
+              <strong style="font-size:.78rem">Use incoming</strong>
               <div style="font-size:.72rem;color:var(--ink-soft);margin-top:3px;line-height:1.4">
-                ${esc((c.incoming.text||'').slice(0,80))||'<em>sin texto</em>'}
+                ${esc((c.incoming.text||'').slice(0,80))||'<em>no text</em>'}
               </div>
             </label>
           </div>
@@ -1537,15 +1551,15 @@ function mergeProject(event) {
       const actions = document.getElementById('merge-actions');
       actions.innerHTML = '';
       const cancelBtn = document.createElement('button');
-      cancelBtn.className = 'btn-act outline'; cancelBtn.textContent = 'Cancelar';
+      cancelBtn.className = 'btn-act outline'; cancelBtn.textContent = 'Cancel';
       cancelBtn.onclick = () => { document.getElementById('merge-modal').style.display='none'; _pendingMerge=null; document.getElementById('merge-input').value=''; };
       const applyBtn = document.createElement('button');
-      applyBtn.className = 'btn-act primary'; applyBtn.textContent = 'Aplicar combinación';
+      applyBtn.className = 'btn-act primary'; applyBtn.textContent = 'Apply merge';
       applyBtn.onclick = applyMerge;
       actions.appendChild(cancelBtn); actions.appendChild(applyBtn);
       document.getElementById('merge-modal').style.display = 'flex';
 
-    } catch(err) { showToast('No se pudo leer el archivo', 'err'); }
+    } catch(err) { showToast('Could not read file', 'err'); }
   };
   r.readAsText(file);
   event.target.value = '';
@@ -1554,23 +1568,29 @@ function mergeProject(event) {
 function applyMerge() {
   if (!_pendingMerge) return;
   const { newPages, conflicts } = _pendingMerge;
+
+  // Apply conflict resolutions
   conflicts.forEach((c,i) => {
     const choice = document.querySelector(`input[name="conflict-${i}"]:checked`);
     if (choice && choice.value === 'incoming') {
       const idx = pages.findIndex(p => p.id === c.existing.id);
       if (idx !== -1) pages[idx] = c.incoming;
     }
+    // 'existing' means no change needed
   });
+
+  // Add new pages
   pages = [...pages, ...newPages];
+
   document.getElementById('merge-modal').style.display = 'none';
   _pendingMerge = null;
   renderSidebar(); renderOverview(); updateStats();
   if (currentIdx !== null) openEditor(currentIdx);
-  showToast(`Combinación completa — ${newPages.length} página(s) agregada(s), ${conflicts.length} conflicto(s) resuelto(s)`, 'ok');
+  showToast(`Merge complete — ${newPages.length} page(s) added, ${conflicts.length} conflict(s) resolved`, 'ok');
 }
 function newBook() {
   if (pages.length > 0 || document.getElementById('s-title').value.trim()) {
-    if (!confirm('¿Iniciar un nuevo libro? Todo el trabajo no guardado se perderá.')) return;
+    if (!confirm('Start a new book? All unsaved work will be lost.')) return;
   }
   // Clear all fields
   ['s-title','s-lang','s-speaker','s-editor','s-artist','s-audio-link'].forEach(id => {
@@ -1578,7 +1598,7 @@ function newBook() {
   });
   updateBadge();
   _doUpdateAudioLink();
-  clearCoverImagen();
+  clearCoverImage();
   _fileHandle = null;
   updateSaveLabel();
   pages = [];
@@ -1587,7 +1607,7 @@ function newBook() {
   renderSidebar();
   renderOverview();
   updateStats();
-  showToast('Nuevo libro iniciado', 'ok');
+  showToast('New book started', 'ok');
 }
 function esc(s){ return s?s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'):''; }
 function escAttr(s){ return s?s.replace(/'/g,'&#39;').replace(/"/g,'&quot;'):''; }
