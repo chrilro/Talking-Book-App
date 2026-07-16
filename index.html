@@ -1,35 +1,230 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Talking Book App</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      max-width: 500px;
-      margin: 80px auto;
-      text-align: center;
-    }
-    a {
-      display: block;
-      margin: 20px 0;
-      padding: 15px;
-      background: #2ea44f;
-      color: white;
-      text-decoration: none;
-      border-radius: 6px;
-      font-size: 18px;
-    }
-    a:hover {
-      background: #268a43;
-    }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Talking Book Builder — Language Documentation Tool</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1C2B1A;--ink-mid:#3A4E37;--ink-soft:#6B7D68;
+  --parchment:#F7F0E3;--parch-mid:#EDE4D2;--parch-drk:#D8CDB8;
+  --gold:#C8872A;--gold-lt:#F0D49A;
+  --sage:#E4EBE1;--white:#fff;
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'Noto Sans',sans-serif;background:var(--parchment);color:var(--ink);line-height:1.7}
+
+/* HEADER */
+.site-header{background:var(--ink);color:var(--parchment);padding:0 2rem}
+.header-inner{max-width:860px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px}
+.site-title{font-size:1rem;font-weight:600;color:var(--parchment);text-decoration:none}
+.site-nav a{font-size:.85rem;color:rgba(200,185,165,.7);text-decoration:none;margin-left:1.5rem;transition:color .15s}
+.site-nav a:hover{color:var(--gold-lt)}
+
+/* HERO */
+.hero{background:var(--ink-mid);color:var(--parchment);padding:5rem 2rem}
+.hero-inner{max-width:760px;margin:0 auto;text-align:center}
+.hero h1{font-size:2.4rem;font-weight:600;line-height:1.2;margin-bottom:1rem}
+.hero h1 span{color:var(--gold-lt)}
+.hero p{font-size:1.05rem;color:rgba(200,185,165,.85);max-width:560px;margin:0 auto 2.5rem}
+.btn-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:8px;font-family:'Noto Sans',sans-serif;font-size:.95rem;font-weight:600;text-decoration:none;transition:background .15s,transform .1s}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--gold);color:var(--ink)}
+.btn-primary:hover{background:#d9962f}
+.btn-secondary{background:rgba(255,255,255,.1);color:var(--parchment);border:1px solid rgba(255,255,255,.2)}
+.btn-secondary:hover{background:rgba(255,255,255,.18)}
+
+/* MAIN */
+.main{max-width:860px;margin:0 auto;padding:4rem 2rem}
+
+/* FEATURES */
+.features{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.25rem;margin-bottom:4rem}
+.feature-card{background:var(--white);border:1px solid var(--parch-drk);border-radius:12px;padding:1.25rem}
+.feature-icon{font-size:1.5rem;margin-bottom:.6rem}
+.feature-card h3{font-size:.95rem;font-weight:600;color:var(--ink);margin-bottom:.35rem}
+.feature-card p{font-size:.82rem;color:var(--ink-soft);line-height:1.6}
+
+/* SECTIONS */
+.section-title{font-size:1.3rem;font-weight:600;color:var(--ink);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:2px solid var(--parch-drk)}
+.section{margin-bottom:3.5rem}
+
+/* WORKFLOW */
+.steps{display:flex;flex-direction:column;gap:.75rem;counter-reset:step}
+.step{display:flex;gap:1rem;align-items:flex-start;counter-increment:step}
+.step::before{content:counter(step);background:var(--ink-mid);color:var(--parchment);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:600;flex-shrink:0;margin-top:1px}
+.step p{font-size:.9rem;color:var(--ink);line-height:1.6;padding-top:3px}
+.step p strong{color:var(--ink-mid)}
+
+/* CITATION */
+.citation-box{background:var(--sage);border-left:4px solid var(--gold);border-radius:0 8px 8px 0;padding:1rem 1.25rem;font-size:.9rem;color:var(--ink-mid);font-style:italic;margin-top:1rem}
+
+/* LICENSE */
+.license-box{background:var(--white);border:1px solid var(--parch-drk);border-radius:12px;padding:1.5rem}
+.license-box h3{font-size:.9rem;font-weight:600;color:var(--ink);margin-bottom:.5rem;margin-top:1rem}
+.license-box h3:first-child{margin-top:0}
+.license-box p,.license-box li{font-size:.85rem;color:var(--ink-soft);line-height:1.7}
+.license-box ul{margin-left:1.25rem}
+.license-box a{color:var(--gold);text-decoration:none}
+.license-box a:hover{text-decoration:underline}
+.license-badge{display:inline-block;background:var(--ink);color:var(--parchment);font-size:.75rem;font-weight:600;padding:3px 12px;border-radius:20px;margin-bottom:1rem;letter-spacing:.04em}
+
+/* DOWNLOAD */
+.download-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
+.download-card{background:var(--white);border:1px solid var(--parch-drk);border-radius:12px;padding:1.25rem;text-align:center}
+.download-card h3{font-size:1rem;font-weight:600;color:var(--ink);margin-bottom:.35rem}
+.download-card p{font-size:.8rem;color:var(--ink-soft);margin-bottom:1rem}
+.btn-download{display:inline-flex;align-items:center;gap:6px;background:var(--ink);color:var(--parchment);padding:9px 20px;border-radius:7px;font-size:.85rem;font-weight:600;text-decoration:none;transition:background .15s}
+.btn-download:hover{background:var(--ink-mid)}
+
+/* FOOTER */
+.site-footer{background:var(--ink);color:rgba(200,185,165,.5);text-align:center;padding:2rem;font-size:.8rem}
+.site-footer a{color:rgba(200,185,165,.7);text-decoration:none}
+.site-footer a:hover{color:var(--gold-lt)}
+
+@media(max-width:600px){
+  .hero h1{font-size:1.7rem}
+  .download-grid{grid-template-columns:1fr}
+  .header-inner{flex-direction:column;height:auto;padding:1rem 0;gap:.5rem}
+  .site-nav a:first-child{margin-left:0}
+}
+</style>
 </head>
 <body>
-  <h1>Talking Book App</h1>
-  <p>Choose your language:</p>
-  <a href="Talking_Book.html">English</a>
-  <a href="Libro_Hablado.html">Español</a>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="site-title">Talking Book Builder</a>
+    <nav class="site-nav">
+      <a href="#features">Features</a>
+      <a href="#how-to-use">How to use</a>
+      <a href="#citation">Citation</a>
+      <a href="#license">License</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Create <span>talking books</span> for indigenous language documentation</h1>
+    <p>A free, offline-capable tool for fieldwork linguists, community members, and students. Build printable, audio-linked storybooks from recordings, photographs, and transcriptions.</p>
+    <div class="btn-row">
+      <a href="Talking_Book.html" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+        Open in English
+      </a>
+      <a href="Libro_Hablado.html" class="btn btn-secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+        Abrir en Español
+      </a>
+    </div>
+  </div>
+</section>
+
+<main class="main">
+
+  <section class="section" id="features">
+    <div class="section-title">Features</div>
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon">📖</div>
+        <h3>Story page editor</h3>
+        <p>Add pages with transcription text and illustrations. Navigate, reorder, and edit any page at any time.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🗂</div>
+        <h3>ELAN .eaf import</h3>
+        <p>Select a tier and every annotation becomes a story page, ordered by start time. Works with any ELAN project.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔊</div>
+        <h3>QR audio link</h3>
+        <p>Paste a Google Drive, Dropbox, or YouTube link. A scannable QR code is generated for the printed cover.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🖨</div>
+        <h3>Print-ready output</h3>
+        <p>Full-bleed cover with title, speaker, artist, project team, and QR code. One page per story page, school-ready.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📝</div>
+        <h3>Markdown export</h3>
+        <p>YAML front matter with all metadata, embedded base64 images, and a QR code rendered as an image for downstream processing.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🤝</div>
+        <h3>Merge projects</h3>
+        <p>Combine JSON files from multiple contributors with page-level conflict resolution — designed for fieldwork teams.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✈️</div>
+        <h3>Works offline</h3>
+        <p>A single HTML file. No installation, no server, no internet required. Open in any modern browser anywhere.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌐</div>
+        <h3>English &amp; Spanish</h3>
+        <p>Full interface available in both English and Spanish. All labels, dialogs, and exports are localized.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="how-to-use">
+    <div class="section-title">How to use</div>
+    <div class="steps">
+      <div class="step"><p><strong>Download</strong> the HTML file below and open it in Chrome, Edge, Firefox, or Safari.</p></div>
+      <div class="step"><p><strong>Fill in the story details</strong> — title, language, speaker, artist, project team — in the left sidebar.</p></div>
+      <div class="step"><p><strong>Paste a cloud audio link</strong> (Google Drive, Dropbox, or YouTube) to generate the cover QR code.</p></div>
+      <div class="step"><p><strong>Add pages</strong> manually or import annotations from an ELAN <code>.eaf</code> file. Each annotation becomes one page.</p></div>
+      <div class="step"><p><strong>Upload an illustration</strong> (.jpg or .png) for each page and enter or edit the transcription text.</p></div>
+      <div class="step"><p><strong>Print the book</strong> — the browser print dialog produces a PDF with a full-bleed cover and one story page per sheet.</p></div>
+      <div class="step"><p><strong>Save your project</strong> as a JSON file to continue later, share with collaborators, or merge with other contributors' work.</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="citation">
+    <div class="section-title">Citation</div>
+    <p style="font-size:.88rem;color:var(--ink-soft)">If you use Talking Book Builder in your research or language documentation work, please cite it as:</p>
+    <div class="citation-box">
+      Rogers, Chris. 2025. <em>Talking Book Builder</em>. Software.
+    </div>
+  </section>
+
+  <section class="section" id="license">
+    <div class="section-title">License</div>
+    <div class="license-box">
+      <div class="license-badge">© 2025 Chris Rogers</div>
+      <p>This software is made available for <strong>individual, non-commercial use only</strong>.</p>
+
+      <h3>Permitted use</h3>
+      <ul>
+        <li>A student, researcher, or community member using the tool for personal or academic language documentation</li>
+      </ul>
+
+      <h3>Not permitted without a license</h3>
+      <ul>
+        <li>Commercial use of any kind</li>
+        <li>Deployment or distribution for use by a group, organization, institution, or classroom</li>
+      </ul>
+
+      <h3>Licensing inquiries</h3>
+      <p>For institutional, classroom, or commercial licensing contact: <a href="mailto:chris.linguist@gmail.com">chris.linguist@gmail.com</a></p>
+
+      <h3>All rights reserved</h3>
+      <p>Unauthorized commercial use or group deployment of this software is prohibited.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>Talking Book Builder · <a href="mailto:chris.linguist@gmail.com">chris.linguist@gmail.com</a></p>
+  <p style="margin-top:.5rem">© 2025 Chris Rogers · Individual non-commercial use only</p>
+</footer>
+
 </body>
 </html>
-

@@ -1,3 +1,35 @@
+<!--
+================================================================================
+  LIBRO HABLADO — CONSTRUCTOR DE HISTORIAS
+  © 2025 Chris Rogers / languageconservation.org
+
+  LICENCIA — Solo para uso individual no comercial
+  -------------------------------------------------
+  Este software se pone a disposición únicamente para uso individual
+  y no comercial. Ejemplos de uso permitido: un estudiante, investigador
+  o miembro de la comunidad que documenta una lengua con fines personales
+  o académicos.
+
+  NO ESTÁ PERMITIDO:
+    - Usar esta herramienta con fines comerciales de ningún tipo
+    - Implementarla o distribuirla para uso grupal, organizacional,
+      institucional o en aula sin una licencia escrita por separado
+
+  CITA
+  ----
+  Si utiliza esta herramienta en su trabajo, cítela como:
+    Rogers, C. (2025). Libro Hablado: Constructor de Historias [Software].
+    languageconservation.org
+
+  CONSULTAS DE LICENCIA
+  ---------------------
+  Para licencias institucionales, de aula o comerciales, contacte a:
+    chris.linguist@gmail.com
+
+  Todos los derechos reservados. El uso comercial no autorizado o la
+  implementación grupal de este software está prohibida.
+================================================================================
+-->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -392,7 +424,7 @@ body{font-family:'Inter',sans-serif;background:var(--parchment);color:var(--ink)
   }
   .pp-text{
     width:100%;color:#1C2B1A;line-height:1.85;
-    font-family:'Noto Sans', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;text-align:left;
+    text-align:left;
     flex-shrink:0;
   }
 }
@@ -490,7 +522,27 @@ body{font-family:'Inter',sans-serif;background:var(--parchment);color:var(--ink)
   <hr class="sb-div"/>
   <div>
     <div class="sb-title">Exportar e Imprimir</div>
-    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:.75rem;color:var(--sage-mid);margin-bottom:8px;margin-top:-2px">
+    <!-- Controles de fuente de impresión -->
+    <div style="margin-bottom:8px">
+      <div style="font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--sage-mid);margin-bottom:5px">Fuente de impresión</div>
+      <select id="sel-font-family" style="width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:var(--r-sm);color:var(--parchment);font-family:Inter,sans-serif;font-size:.78rem;padding:6px 8px;margin-bottom:6px">
+        <option value="'Noto Sans','Segoe UI','Helvetica Neue',Arial,sans-serif">Noto Sans</option>
+        <option value="'Times New Roman',Times,serif">Times New Roman</option>
+        <option value="Georgia,serif">Georgia</option>
+        <option value="Arial,Helvetica,sans-serif">Arial</option>
+        <option value="'Courier New',Courier,monospace">Courier New</option>
+        <option value="Palatino,'Palatino Linotype',serif">Palatino</option>
+        <option value="Verdana,Geneva,sans-serif">Verdana</option>
+      </select>
+      <div style="display:flex;align-items:center;gap:7px">
+        <span style="font-size:.72rem;color:var(--sage-mid);flex-shrink:0">Tamaño</span>
+        <button onclick="changeFontSize(-1)" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:4px;color:var(--parchment);width:22px;height:22px;cursor:pointer;font-size:14px;line-height:1;flex-shrink:0">−</button>
+        <span id="font-size-display" style="font-size:.82rem;color:var(--parchment);min-width:36px;text-align:center;font-family:monospace">16 pt</span>
+        <button onclick="changeFontSize(1)" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:4px;color:var(--parchment);width:22px;height:22px;cursor:pointer;font-size:14px;line-height:1;flex-shrink:0">+</button>
+        <button onclick="resetFontSize()" style="background:none;border:none;color:rgba(200,185,165,.4);font-size:.65rem;cursor:pointer;padding:0 2px;flex-shrink:0" title="Restablecer">↺</button>
+      </div>
+    </div>
+    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:.75rem;color:var(--sage-mid);margin-bottom:8px">
       <input type="checkbox" id="chk-font-scale" checked style="accent-color:var(--gold);width:13px;height:13px;cursor:pointer;flex-shrink:0"/>
       Ajustar fuente automáticamente
     </label>
@@ -1127,7 +1179,8 @@ function printBook() {
   const PAGE_H_MM  = 267;  // usable A4 page height
   const IMG_H_MM   = 148;  // fixed image max-height (matches CSS)
   const IMG_GAP_MM = 10;   // margin-bottom on img col
-  const BASE_FONT  = 16;   // pt
+  const BASE_FONT  = window._printFontSize || 16;   // pt — set by sidebar control
+  const FONT_FAMILY = document.getElementById('sel-font-family').value;
   const MIN_FONT   = 10;   // pt
   const LINE_H     = 1.85;
   const TEXT_W_MM  = 174;  // A4 210mm - 18mm*2 margins
@@ -1141,7 +1194,7 @@ function printBook() {
       'width:' + TEXT_W_MM + 'mm',
       'font-size:' + fontPt + 'pt',
       'line-height:' + LINE_H,
-      "font-family:'Noto Sans','Segoe UI','Helvetica Neue',Arial,sans-serif",
+      "font-family:" + FONT_FAMILY + ",",
       'white-space:pre-wrap','word-break:break-word','overflow-wrap:break-word'
     ].join(';');
     el.textContent = text;
@@ -1173,6 +1226,7 @@ function printBook() {
     // Text — find font size that fits remaining vertical space
     const textEl = document.createElement('div');
     textEl.className = 'pp-text';
+    textEl.style.fontFamily = FONT_FAMILY;
 
     if (hasText) {
       if (doFontScale) {
