@@ -74,7 +74,7 @@ If you use Talking Book Builder in your research or language documentation work,
 
 ## License
 
-© 2025 Chris Rogers / [languageconservation.org](https://languageconservation.org)
+© 2025 Chris Rogers
 
 This software is made available for **individual, non-commercial use only**.
 
