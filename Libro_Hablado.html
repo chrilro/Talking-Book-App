@@ -701,6 +701,13 @@ body{font-family:'Inter',sans-serif;background:var(--parchment);color:var(--ink)
           </div>
         </div>
 
+        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px">
+          <button class="btn-act outline" onclick="insertPage(0)">↑ Insertar página antes</button>
+          <button class="btn-act outline" onclick="insertPage(1)">↓ Insertar página después</button>
+          <button class="btn-act outline" onclick="movePage(-1)" id="btn-move-up">▲ Subir</button>
+          <button class="btn-act outline" onclick="movePage(1)" id="btn-move-down">▼ Bajar</button>
+        </div>
+
         <div class="page-actions">
           <button class="btn-act danger" onclick="deletePage()">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
@@ -940,6 +947,27 @@ function addPage() {
   renderSidebar(); renderOverview(); updateStats();
   openEditor(currentIdx);
   showToast('Página ' + pages.length + ' agregada', 'ok');
+}
+function insertPage(offset) {
+  if (currentIdx === null) return;
+  saveCurrentIfOpen();
+  const at = currentIdx + offset;
+  pages.splice(at, 0, makePage());
+  currentIdx = at;
+  renderSidebar(); renderOverview(); updateStats();
+  openEditor(currentIdx);
+  showToast('Página en blanco insertada en la posición ' + (currentIdx+1), 'ok');
+}
+function movePage(dir) {
+  if (currentIdx === null) return;
+  const n = currentIdx + dir;
+  if (n < 0 || n >= pages.length) return;
+  saveCurrentIfOpen();
+  const tmp = pages[currentIdx]; pages[currentIdx] = pages[n]; pages[n] = tmp;
+  currentIdx = n;
+  renderSidebar(); renderOverview(); updateStats();
+  openEditor(currentIdx);
+  showToast('Página movida a la posición ' + (currentIdx+1), 'ok');
 }
 function deletePage() {
   if (currentIdx === null) return;
